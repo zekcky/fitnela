@@ -1,0 +1,179 @@
+ * {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, Arial, sans-serif;
+  background: #0b0b0b;
+  color: #fff;
+  padding: 12px;
+  margin: 0;
+}
+
+h1, h2 {
+  margin: 10px 0;
+}
+
+.card {
+  background: #121212;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #2a2a2a;
+  margin-bottom: 12px;
+}
+
+.row {
+  margin-bottom: 10px;
+}
+
+label {
+  display: block;
+  font-size: 13px;
+  opacity: .8;
+  margin-bottom: 4px;
+}
+
+input, select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  background: #0f0f0f;
+  border: 1px solid #333;
+  color: #fff;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+th, td {
+  border: 1px solid #2a2a2a;
+  padding: 6px;
+}
+
+th input {
+  background: transparent;
+  border: none;
+  font-weight: bold;
+  color: #fff;
+}
+
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.buttons button {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  background: #1a1a1a;
+  border: 1px solid #333;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.buttons button:hover {
+  background: #222;
+}
+
+.buttons button.active {
+  background: #3b3b3b;
+  border-color: #777;
+}
+
+.actions, .footer-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+button {
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  background: #1f1f1f;
+  color: #fff;
+  cursor: pointer;
+}
+
+button.primary {
+  background: #1565c0;
+}
+
+button.secondary {
+  background: #2a2a2a;
+}
+
+button.danger {
+  background: #b71c1c;
+}
+
+/* Week collapsed */
+.collapsed {
+  display: none;
+}
+
+/* Completed colors */
+.card.completed {
+  border-left: 4px solid #444;
+}
+
+.card.completed.easy {
+  border-left-color: #2e7d32;
+}
+
+.card.completed.great {
+  border-left-color: #1565c0;
+}
+
+.card.completed.hard {
+  border-left-color: #ef6c00;
+}
+
+.card.completed.failed {
+  border-left-color: #c62828;
+}
+
+/* Modal */
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.85);
+  z-index: 999;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: #121212;
+  padding: 12px;
+  border-radius: 10px;
+  width: 95%;
+  max-width: 420px;
+}
+
+.modal-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.modal-actions button {
+  flex: 1;
+  font-weight: bold;
+}
+
+/* Rating colors */
+.modal-actions button:nth-child(1) { background:#2e7d32; } /* Easy */
+.modal-actions button:nth-child(2) { background:#1565c0; } /* Great */
+.modal-actions button:nth-child(3) { background:#ef6c00; } /* Hard */
+.modal-actions button:nth-child(4) { background:#c62828; } /* Failed */
