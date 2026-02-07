@@ -1,0 +1,618 @@
+ * {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, Arial, sans-serif;
+  background: #0b0b0b;
+  color: #fff;
+  padding: 12px;
+  margin: 0;
+}
+
+h1, h2 {
+  font-weight: 700;
+  margin: 12px 0 16px;
+  letter-spacing: 0.5px;
+  color:  /* soft bluish white */
+  margin: 10px 0;
+  background-color:darkred;
+ 
+}
+
+.card {
+  background: #121212;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #2a2a2a;
+  margin-bottom: 12px;
+}
+
+.row {
+  margin-bottom: 10px;
+}
+
+label {
+  display: block;
+  font-size: 13px;
+  opacity: .8;
+  margin-bottom: 4px;
+}
+
+input, select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  background: #0f0f0f;
+  border: 1px solid #333;
+  color: #fff;
+}
+
+table {
+  width: 100%;
+  border-collapse:collapsed;
+  margin-top: 10px;
+ margin-block-end: 20px;
+ 
+}
+
+th, td {
+  border: 1px solid #2a2a2a;
+  padding: 1px;
+}
+
+th input {
+  background: transparent;
+  border: none;
+  font-weight: bold;
+  color: #fff;
+}
+
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.buttons button {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  background: #1a1a1a;
+  border: 1px solid #333;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.buttons button:hover {
+  background: #222;
+}
+
+.buttons button.active {
+  background: #3b3b3b;
+  border-color: #777;
+}
+
+.actions, .footer-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+button {
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  background: #1f1f1f;
+  color: #fff;
+  cursor: pointer;
+}
+
+button.primary {
+  background: #1565c0;
+}
+
+button.secondary {
+  background: #2a2a2a;
+}
+
+button.danger {
+  background: #b71c1c;
+}
+
+/* Week collapsed */
+.collapsed {
+  display: none;
+}
+
+/* Completed colors */
+.card.completed {
+  border-left: 4px solid #444;
+}
+
+.card.completed.easy {
+  border-left-color: #2e7d32;
+}
+
+.card.completed.great {
+  border-left-color: #1565c0;
+}
+
+.card.completed.hard {
+  border-left-color: #ef6c00;
+}
+
+.card.completed.failed {
+  border-left-color: #c62828;
+}
+
+/* Modal */
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.85);
+  z-index: 999;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: #121212;
+  padding: 12px;
+  border-radius: 10px;
+  width: 95%;
+  max-width: 420px;
+}
+
+.modal-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.modal-actions button {
+  flex: 1;
+  font-weight: bold;
+}
+
+/* Rating colors */
+.modal-actions button:nth-child(1) { background:#2e7d32; } /* Easy */
+.modal-actions button:nth-child(2) { background:#1565c0; } /* Great */
+.modal-actions button:nth-child(3) { background:#ef6c00; } /* Hard */
+.modal-actions button:nth-child(4) { background:#c62828; } /* Failed */
+/* ===================== */
+/* Inspector Styles       */
+/* ===================== */
+.inspector {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(0,0,0,.7);
+  backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  z-index: 9999;
+}
+
+.inspector-inner {
+  width: 100%;
+  max-width: 420px;
+  background: #111;
+  border-radius: 14px;
+  padding: 12px;
+  color: white;
+}
+
+.inspector-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.inspector-header7u8 button {
+  background: transparent;
+  border: 1px solid #555;
+  color: white;
+  padding: 6px 10px;
+  border-radius: 8px;
+}
+
+.inspector-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.inspector-intensity {
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.inspector-intensity button {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 12px;
+  background: #333;
+  color: white;
+}
+
+.inspector-save {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 12px;
+  background: #0b7;
+  color: white;
+}
+
+.hidden {
+  display: none;
+}
+
+/* ===================== */
+/* Completed Exercise Tab */
+/* ===================== */
+#completedExercises {
+  margin-top: 20px;
+  padding: 10px;
+ 
+  
+}
+
+.completed-week {
+  margin-top: 10px;
+  border: 1px solid #444;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.completed-exercise {
+  border-right-color: green
+  margin-left: 10px;
+  padding: 6px 0;
+  border-bottom: 1px solid #333;
+  border-block-end-color: green
+  
+  
+}/* Category / Selected Buttons */
+.buttons button.active {
+  background: #1565c0; /* Bright blue for selected */
+  border-color: #1a73e8; /* Slightly lighter blue border */
+  color: #fff;
+}
+/* Category / Selected Buttons */
+.buttons button {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  background: darkred; /* default dark purple */
+  border: 1px solid #362a52;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s, border 0.2s;
+}
+
+.buttons button:hover {
+  background: #5c4b7f; /* hover effect */
+}
+
+/* Active / Selected Button */
+.buttons button.active {
+  background: dodgerblue; /* light blue */
+  border-color: #3399ff; /* slightly darker blue border */
+  color: #fff;
+}/* Suggestion dropdown */
+.suggestions {
+  display: none;             /* hidden by default */
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #222;          /* dark background */
+  color: #fff;               /* text color */
+  border: 1px solid #555;
+  z-index: 10;
+  width: 100%;               /* match input width */
+  max-height: 150px;
+  overflow-y: auto;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.suggestions div {
+  padding: 6px 10px;
+  cursor: pointer;
+}
+
+.suggestions div:hover {
+  background: #444;          /* hover highlight */
+  color: #fff;
+}
+
+/* Make input field position relative for absolute suggestions */
+td {
+  position: relative;
+}.day-buttons button {
+  margin: 2px;
+  padding: 6px 12px;
+  border: 1px solid #333;
+  background: #111;
+  color: #fff;
+  cursor: pointer;
+}
+
+.day-buttons button.active {
+  background: #0b84ff;
+  color: #fff;
+  border-color: #0b84ff;
+}#volumeBars div {
+  background-color: #222;
+  border-radius: 8px;
+}
+
+#volumeBars div div {
+  height: 100%;
+  text-align: center;
+  color: white;
+}.progress {
+  margin-left: 6px;
+  font-weight: bold;
+}
+
+.progress:contains("▲") { color: #4caf50; }
+.progress:contains("▼") { color: #f44336; }
+.week-header {
+  font-weight: bold;
+  padding: 10px;
+  background: #111;
+  border: 1px solid #222;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.week-content {
+  display: none;
+  padding: 10px;
+  border-left: 2px solid #333;
+}
+
+.week-content.active {
+  display: block;
+}
+
+.volume-bar {
+  margin-top: 8px;
+  font-size: 14px;
+  opacity: 0.9;
+}.card {
+  background: #1a1a1a;
+  color: #fff;
+  padding: 16px;
+  border-radius: 12px;
+  max-width: 600px;
+  margin: 20px auto;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+}
+
+.toggle-btn {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0;
+}
+
+.arrow {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.collapsible {
+  overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.4s ease;
+  max-height: 1000px;
+  padding-top: 12px;
+}
+
+.collapsible.closed {
+  max-height: 0;
+  padding-top: 0;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.gallery-item {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #222;
+}
+
+.gallery-item img {
+  width: 100%;
+  display: block;
+  border-radius: 8px;
+}
+
+.gallery-overlay {
+  position: absolute;
+  bottom: 4px;
+  left: 4px;
+  color: #fff;
+  font-size: 12px;
+  background: rgba(0,0,0,0.6);
+  padding: 2px 4px;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.gallery-overlay button {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  background: red;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  padding: 2px 4px;
+} 
+/* ===================== */
+/* Volume Bars Component */
+/* ===================== */
+
+.volume-week {
+  margin-bottom: 14px;
+  border: 1px solid #2a2a2a;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #121212;
+}
+
+.volume-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  cursor: pointer;
+  background: #181818;
+}
+
+.volume-title {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.volume-delta.up {
+  color: #4caf50;
+}
+
+.volume-delta.down {
+  color: #f44336;
+}
+
+.volume-bar-track {
+  height: 14px;
+  background: #2a2a2a;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-top: 6px;
+}
+
+.volume-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #1565c0, #42a5f5);
+  border-radius: 8px;
+}
+
+.volume-details {
+  display: none;
+  padding: 10px 12px;
+  border-top: 1px solid #2a2a2a;
+}
+
+.volume-details.active {
+  display: block;
+}
+
+.volume-exercise {
+  font-size: 13px;
+  opacity: 0.9;
+  padding: 4px 0;
+  border-bottom: 1px dashed #333;
+}
+
+.volume-exercise:last-child {
+  border-bottom: none;
+ .stepper-wrapper {
+  position: relative;
+  width: 100%;
+}.week-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 16px;
+  background: var(--bg-soft);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-subtle);
+  cursor: pointer;
+}
+
+.week-title {
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.week-meta {
+  display: flex;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--text-muted);
+}.day-pill {
+  padding: 6px 12px;
+  border-radius: 20px;
+  background-color: #eee;
+  cursor: pointer;
+  font-size: 14px;
+  user-select: none;
+  transition: background-color 0.2s;
+}
+
+.day-pill.selected {
+  background-color: #4caf50;
+  color: #fff;
+}
+
+.day-pill.locked {
+  background-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
+}.set-card {
+  background:#1a1a1a;
+  padding:10px;
+  border-radius:12px;
+  margin-bottom:10px;
+}.inspector-inner {
+  max-height: 80vh;
+  overflow-y: auto;
+  padding: 12px;
+}
+.set-card {
+  border: 1px solid #555;
+  padding: 6px;
+  margin-bottom: 6px;
+  display: flex;
+  flex-direction: column;
+}/* Highlight used days in calendar */
+.used-day {
+  background-color: #f5c542; /* yellow */
+  border-radius: 4px;
+  color: #000;
+  font-weight: bold;
+}
