@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0b0b0b">
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart Workout Planner</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<h1>Smart Workout Planner</h1>
+
+<div class="card">
+
+  <div class="row">
+    <label>Program Start Date</label>
+    <input type="date" id="startDate" />
+  </div>
+
+  <div class="row">
+    <label>Training Days / Week</label>
+    <select id="daysPerWeek">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+    </select>
+  </div>
+
+   <div class="row">
+  <label>Week Day</label>
+  <div<div class="row">
+  <select id="daySelect">
+    <option>Day 1</option>
+    <option>Day 2</option>
+    <option>Day 3</option>
+    <option>Day 4</option>
+    <option>Day 5</option>
+    <option>Day 6</option>
+    <option>Day 7</option>
+  </select>
+</div>
+  </div>
+</div>
+
+<div class="buttons">
+  <button id="btnFull" onclick="selectWorkout('Full')">Full</button>
+  <button id="btnUpper" onclick="selectWorkout('Upper')">Upper</button>
+  <button id="btnLower" onclick="selectWorkout('Lower')">Lower</button>
+  <button id="btnAbs" onclick="selectWorkout('Abs')">Abs</button>
+  <button id="btnCustom" onclick="selectWorkout('Custom')">Custom</button>
+  <button id="btnTemplates" onclick="showTemplateList()">Templates ▼</button>
+</div>
+
+<!-- Templates Dropdown -->
+ <div id="templateList" style="display:none; background:#111; color:#fff; border:1px solid #333; padding:8px; margin-top:4px; position:absolute; z-index:100;">
+
+  <div style="margin-bottom:6px;">
+    <label style="font-size:12px;">Load into:</label>
+    <select id="templateTarget">
+      <option value="Full">Full</option>
+      <option value="Upper">Upper</option>
+      <option value="Lower">Lower</option>
+      <option value="Abs">Abs</option>
+      <option value="Custom">Custom</option>
+    </select>
+  </div>
+
+  <button onclick="saveCurrentAsTemplate()">Save Current as Template</button>
+
+  <div id="templatesContainer" style="margin-top:6px;"></div>
+</div>
+
+<p id="selected"></p>
+
+<table>
+  <thead>
+    <tr>
+      <th><input id="h1" value="Exercise" /></th>
+      <th><input id="h2" value="Sets" /></th>
+      <th><input id="h3" value="Reps" /></th>
+      <th><input id="h4" value="Weight" /></th>
+      <th>X</th>
+    </tr>
+  </thead>
+  <tbody id="table"></tbody>
+</table>
+
+<button class="secondary" onclick="addRow()">Add Exercise</button>
+
+<div class="row">
+  <label>Time</label>
+  <input type="time" id="time" />
+</div>
+
+<div class="actions">
+  <button class="primary" onclick="saveDay()">Save Day</button>
+</div>
+  <!-- PROGRESS GALLERY -->
+<div class="card">
+  <h2 style="cursor:pointer;" onclick="toggleGallery()">Progress Gallery ▼</h2>
+
+  <div id="galleryControls">
+    <input type="file" id="galleryFile" accept="image/*" />
+    <input id="galleryNote" placeholder="Optional note (e.g. Week 1 Front)" />
+    <button onclick="addProgressImage()">Add Image</button>
+    <button onclick="sortGalleryByDate()">Sort by Date</button>
+  </div>
+
+  <div id="progressGallery"
+       style="
+         display:grid;
+         grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+         gap:12px;
+         margin-top:12px;
+       ">
+  </div>
+</div>
+
+ <!-- Measurement Modal -->
+<div id="measureModal" style="
+    display:none;
+    position:fixed;
+    top:0; left:0;
+    width:100%; height:100%;
+    background:rgba(0,0,0,0.8);
+    justify-content:center;
+    align-items:center;
+    z-index:1000;
+">
+  <div style="position:relative; background:#111; padding:10px; max-width:95%; max-height:90vh;">
+    <button id="closeModal" style="position:absolute; top:5px; right:5px;">X</button>
+    
+    <!-- Scale Input -->
+    <div style="margin-bottom:10px; color:white;">
+      <label>Scale (px per cm): </label>
+      <input type="number" id="scaleInput" value="10" min="1" style="width:60px;">
+      <button onclick="applyScale()">Set Scale</button>
+    </div>
+
+    <div style="position:relative;">
+      <img id="measureImg" style="display:block; max-width:100%; max-height:80vh;" />
+      <canvas id="measureCanvas" style="position:absolute; top:0; left:0;"></canvas>
+    </div>
+
+    <button onclick="saveMeasurements()" style="margin-top:10px;">Save Measurement</button>
+  </div>
+</div>
+<!-- =================================================== -->
+</div>
+<h2>Upcoming Workouts</h2>
+<div id="upcoming"></div>
+<!-- Floating Inspector -->
+<div id="exerciseInspector" class="inspector hidden">
+  <div class="inspector-inner">
+    <div class="inspector-header">
+      <div id="exTitle">Exercise</div>
+      <button onclick="closeInspector()">X</button>
+    </div>
+
+    <!-- Sets UI will be rendered here -->
+    <div id="exStats" class="inspector-stats"></div>
+
+    <!-- Rest Timer -->
+    <div class="restBlock">
+      <label>Rest Time (seconds):</label>
+      <input id="restTimeInput" type="number" min="0" step="5" value="60" onchange="updateRestTime(this.value)">
+      <button onclick="startRestTimer(restSeconds)">Start Rest</button>
+      <span id="restTimerDisplay">Rest: 60s</span>
+    </div>
+
+    <!-- Skipped/Save Buttons -->
+    <div class="inspector-actions">
+      <button onclick="skipExercise()">SKIPPED</button>
+      <button onclick="saveInspector()">SAVE</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ===================== -->
+<!-- NEW: Completed Exercise Tab -->
+<!-- ===================== -->
+<div id="completedExercises">
+  <h3>Completed Exercises</h3>
+  <div id="completedExerciseList"></div>
+   
+
+<h2>Completed & Failed</h2>
+<div id="completed"></div>
+<pre id="summary"></pre>
+<h3>Archived Weeks</h3>
+<div id="archivedWeeks" style="margin-bottom:12px;"></div>
+<div id="archivedWeekDetail" style="margin-top:12px;"></div>
+<div class="footer-actions">
+  <button onclick="exportProgram()">Export All</button>
+  <button onclick="clearCompleted()">Clear Completed</button>
+  <button onclick="clearFailed()">Clear Failed</button>
+  <button onclick="clearArchive()">Clear Archive</button>
+  <button class="danger" onclick="clearAll()">Clear All</button>
+  
+</div>
+
+<!-- MODAL -->
+<div id="modal" class="modal">
+  <div class="modal-content">
+    <h3 id="modalTitle"></h3>
+    <div id="modalTable"></div>
+    <div class="modal-actions"></div>
+  </div>
+</div>
+<!-- Template Preview Modal -->
+<div id="templatePreviewModal" class="modal" style="display:none;">
+  <div class="modal-content">
+    <h3 id="previewTitle"></h3>
+
+    <div id="previewStats" style="margin-bottom:10px;"></div>
+
+    <table style="width:100%; margin-bottom:10px;">
+      <thead>
+        <tr>
+          <th>Exercise</th>
+          <th>Sets</th>
+          <th>Reps</th>
+          <th>Weight</th>
+        </tr>
+      </thead>
+      <tbody id="previewTable"></tbody>
+    </table>
+
+    <div class="modal-actions">
+      <button onclick="confirmLoadTemplate()" class="primary">Load Template</button>
+      <button onclick="closeTemplatePreview()">Cancel</button>
+    </div>
+  </div>
+</div>
+<script src="app.js"></script>
+  <script>
+const categoryButtons = document.querySelectorAll('.buttons button');
+
+categoryButtons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    // Remove active from all buttons
+    categoryButtons.forEach(b => b.classList.remove('active'));
+    // Add active to clicked button
+    btn.classList.add('active');
+  });
+});
+</script>
+
+</body>
+</body>
+</html>
